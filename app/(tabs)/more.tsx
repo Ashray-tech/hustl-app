@@ -1,345 +1,314 @@
-import React, { useRef, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Linking, Animated } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { CircleHelp as HelpCircle, Shield, FileText, Star, MessageCircle, Bell, CreditCard, ChevronRight, Users, Award, TrendingUp } from 'lucide-react-native';
+import React from 'react';
+import { View, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
+import { Bell, User as UserIcon, Settings, HelpCircle, Shield, FileText, Star, LogOut, ChevronRight } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { HustlLogo } from '@/components/HustlLogo';
-import { ModernCard } from '@/components/ui/ModernCard';
 import { Typography } from '@/components/ui/Typography';
-import { AnimatedButton } from '@/components/ui/AnimatedButton';
+import { ModernCard } from '@/components/ui/ModernCard';
 
 export default function MoreScreen() {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 800,
-      useNativeDriver: true,
-    }).start();
-  }, []);
-
-  const handleLinkPress = (url: string) => {
-    Linking.openURL(url);
-  };
+  const menuSections = [
+    {
+      title: 'Account',
+      items: [
+        {
+          id: 1,
+          icon: <Settings size={20} color="#4F46E5" />,
+          title: 'Settings',
+          subtitle: 'Notifications, privacy, security',
+          hasChevron: true,
+        },
+        {
+          id: 2,
+          icon: <UserIcon size={20} color="#6B7280" />,
+          title: 'Edit Profile',
+          subtitle: 'Update your information',
+          hasChevron: true,
+        },
+      ]
+    },
+    {
+      title: 'Support',
+      items: [
+        {
+          id: 3,
+          icon: <HelpCircle size={20} color="#6B7280" />,
+          title: 'Help Center',
+          subtitle: 'FAQs and support articles',
+          hasChevron: true,
+        },
+        {
+          id: 4,
+          icon: <Star size={20} color="#F59E0B" />,
+          title: 'Rate Hustl',
+          subtitle: 'Share your feedback',
+          hasChevron: true,
+        },
+      ]
+    },
+    {
+      title: 'Legal',
+      items: [
+        {
+          id: 5,
+          icon: <FileText size={20} color="#6B7280" />,
+          title: 'Terms of Service',
+          subtitle: 'User agreement and terms',
+          hasChevron: true,
+        },
+        {
+          id: 6,
+          icon: <Shield size={20} color="#6B7280" />,
+          title: 'Privacy Policy',
+          subtitle: 'How we protect your data',
+          hasChevron: true,
+        },
+      ]
+    }
+  ];
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <StatusBar style="light" />
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#4F46E5" />
       
       {/* Header */}
       <LinearGradient
-        colors={['#0021A5', '#001E3C']}
+        colors={['#4F46E5', '#3730A3']}
         style={styles.header}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
       >
-        <Animated.View style={[styles.headerContent, { opacity: fadeAnim }]}>
-          <View style={styles.headerTop}>
+        <View style={styles.headerTop}>
+          <View style={styles.headerLeft}>
             <HustlLogo size={32} />
-            <Typography variant="h2" color="#ffffff">More</Typography>
+            <View style={styles.headerText}>
+              <Typography variant="h4" color="#FFFFFF">Hustl</Typography>
+              <Typography variant="caption" color="rgba(255,255,255,0.8)">Campus Gigs</Typography>
+            </View>
           </View>
-          <Typography variant="body2" color="rgba(255,255,255,0.8)">
-            Settings, help, and information
-          </Typography>
-        </Animated.View>
+          
+          <View style={styles.headerRight}>
+            <TouchableOpacity style={styles.headerButton}>
+              <Bell size={20} color="#FFFFFF" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.headerButton}>
+              <UserIcon size={20} color="#FFFFFF" />
+            </TouchableOpacity>
+            <Typography variant="body2" color="#FFFFFF">Exit</Typography>
+          </View>
+        </View>
+
+        <Typography variant="h2" color="#FFFFFF" style={styles.headerTitle}>
+          More
+        </Typography>
+        <Typography variant="body2" color="rgba(255,255,255,0.8)" style={styles.headerSubtitle}>
+          Settings, help, and information
+        </Typography>
       </LinearGradient>
 
-      {/* Community Stats */}
-      <Animated.View style={[styles.statsSection, { opacity: fadeAnim }]}>
-        <ModernCard style={styles.statsCard} variant="accent">
-          <View style={styles.statsGrid}>
-            <View style={styles.statItem}>
-              <Users size={24} color="#0021A5" />
-              <View style={styles.statContent}>
-                <Typography variant="h3">12,000+</Typography>
-                <Typography variant="body2" color="#001E3C">Active Students</Typography>
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        {menuSections.map((section, sectionIndex) => (
+          <View key={section.title} style={styles.section}>
+            <Typography variant="h4" style={styles.sectionTitle}>{section.title}</Typography>
+            
+            <ModernCard style={styles.menuCard}>
+              {section.items.map((item, itemIndex) => (
+                <TouchableOpacity 
+                  key={item.id} 
+                  style={[
+                    styles.menuItem,
+                    itemIndex < section.items.length - 1 && styles.menuItemBorder
+                  ]}
+                >
+                  <View style={styles.menuItemLeft}>
+                    <View style={styles.menuIcon}>
+                      {item.icon}
+                    </View>
+                    <View style={styles.menuContent}>
+                      <Typography variant="h4" style={styles.menuTitle}>
+                        {item.title}
+                      </Typography>
+                      <Typography variant="body2" color="#6B7280" style={styles.menuSubtitle}>
+                        {item.subtitle}
+                      </Typography>
+                    </View>
+                  </View>
+                  {item.hasChevron && (
+                    <ChevronRight size={20} color="#9CA3AF" />
+                  )}
+                </TouchableOpacity>
+              ))}
+            </ModernCard>
+          </View>
+        ))}
+
+        {/* App Info */}
+        <View style={styles.appInfoSection}>
+          <ModernCard style={styles.appInfoCard}>
+            <View style={styles.appInfoHeader}>
+              <HustlLogo size={40} />
+              <View style={styles.appInfoText}>
+                <Typography variant="h4" style={styles.appName}>Hustl</Typography>
+                <Typography variant="body2" color="#6B7280">Version 1.0.0</Typography>
               </View>
             </View>
-            <View style={styles.statItem}>
-              <Award size={24} color="#E6501E" />
-              <View style={styles.statContent}>
-                <Typography variant="h3">50,000+</Typography>
-                <Typography variant="body2" color="#001E3C">Tasks Completed</Typography>
-              </View>
-            </View>
-            <View style={styles.statItem}>
-              <TrendingUp size={24} color="#E6501E" />
-              <View style={styles.statContent}>
-                <Typography variant="h3">4.9★</Typography>
-                <Typography variant="body2" color="#001E3C">Average Rating</Typography>
-              </View>
-            </View>
-          </View>
-        </ModernCard>
-      </Animated.View>
-
-      {/* Account Section */}
-      <Animated.View style={[styles.section, { opacity: fadeAnim }]}>
-        <Typography variant="h3" style={styles.sectionTitle}>Account</Typography>
-        <ModernCard style={styles.menuList}>
-          <MenuItem
-            icon={<Bell size={20} color="#E6501E" />}
-            title="Notifications"
-            subtitle="Push notifications, email alerts"
-            onPress={() => {}}
-          />
-          <MenuItem
-            icon={<CreditCard size={20} color="#0021A5" />}
-            title="Payment Methods"
-            subtitle="Manage cards and bank accounts"
-            onPress={() => {}}
-          />
-        </ModernCard>
-      </Animated.View>
-
-      {/* Support Section */}
-      <Animated.View style={[styles.section, { opacity: fadeAnim }]}>
-        <Typography variant="h3" style={styles.sectionTitle}>Support</Typography>
-        <ModernCard style={styles.menuList}>
-          <MenuItem
-            icon={<HelpCircle size={20} color="#0021A5" />}
-            title="Help Center"
-            subtitle="FAQs and troubleshooting"
-            onPress={() => {}}
-          />
-          <MenuItem
-            icon={<MessageCircle size={20} color="#E6501E" />}
-            title="Contact Support"
-            subtitle="Get help from our team"
-            onPress={() => {}}
-          />
-          <MenuItem
-            icon={<Star size={20} color="#E6501E" />}
-            title="Rate Hustl"
-            subtitle="Share your feedback"
-            onPress={() => handleLinkPress('https://apps.apple.com')}
-          />
-        </ModernCard>
-      </Animated.View>
-
-      {/* Legal Section */}
-      <Animated.View style={[styles.section, { opacity: fadeAnim }]}>
-        <Typography variant="h3" style={styles.sectionTitle}>Legal</Typography>
-        <ModernCard style={styles.menuList}>
-          <MenuItem
-            icon={<FileText size={20} color="#001E3C" />}
-            title="Terms of Service"
-            subtitle="User agreement and terms"
-            onPress={() => {}}
-          />
-          <MenuItem
-            icon={<Shield size={20} color="#001E3C" />}
-            title="Privacy Policy"
-            subtitle="How we protect your data"
-            onPress={() => {}}
-          />
-        </ModernCard>
-      </Animated.View>
-
-      {/* About Section */}
-      <Animated.View style={[styles.aboutSection, { opacity: fadeAnim }]}>
-        <ModernCard style={styles.aboutCard} variant="primary" gradient>
-          <View style={styles.aboutHeader}>
-            <HustlLogo size={40} />
-            <Typography variant="h3" color="#FFFFFF" style={styles.aboutTitle}>About Hustl</Typography>
-          </View>
-          <Typography variant="body1" color="rgba(255,255,255,0.8)" style={styles.aboutDescription}>
-            Hustl connects University of Florida students for quick campus errands and tasks. 
-            From coffee runs to printing services, we make campus life easier for everyone.
-          </Typography>
-          
-          <View style={styles.aboutStats}>
-            <View style={styles.aboutStat}>
-              <Typography variant="h2" color="#FFFFFF">4.9</Typography>
-              <Typography variant="body2" color="rgba(255,255,255,0.8)">App Rating</Typography>
-            </View>
-            <View style={styles.aboutStat}>
-              <Typography variant="h2" color="#FFFFFF">2023</Typography>
-              <Typography variant="body2" color="rgba(255,255,255,0.8)">Founded</Typography>
-            </View>
-            <View style={styles.aboutStat}>
-              <Typography variant="h2" color="#FFFFFF">UF</Typography>
-              <Typography variant="body2" color="rgba(255,255,255,0.8)">Campus</Typography>
-            </View>
-          </View>
-        </ModernCard>
-      </Animated.View>
-
-      {/* Social Links */}
-      <Animated.View style={[styles.socialSection, { opacity: fadeAnim }]}>
-        <Typography variant="h3" style={styles.sectionTitle}>Connect With Us</Typography>
-        <View style={styles.socialLinks}>
-          <SocialButton 
-            title="📱 Instagram"
-            onPress={() => handleLinkPress('https://instagram.com/hustluf')}
-            variant="secondary"
-          />
-          <SocialButton 
-            title="🐦 Twitter"
-            onPress={() => handleLinkPress('https://twitter.com/hustluf')}
-            variant="primary"
-          />
+            <Typography variant="body2" color="#6B7280" style={styles.appDescription}>
+              Connecting University of Florida students for quick campus errands and tasks.
+            </Typography>
+          </ModernCard>
         </View>
-      </Animated.View>
 
-      {/* App Version */}
-      <Animated.View style={[styles.versionSection, { opacity: fadeAnim }]}>
-        <Typography variant="body2" color="#D8DDE6">Hustl v1.2.0</Typography>
-        <Typography variant="caption" color="#D8DDE6">Made with ❤️ for UF Gators</Typography>
-      </Animated.View>
-    </ScrollView>
-  );
-}
-
-function MenuItem({ icon, title, subtitle, onPress }: {
-  icon: React.ReactNode;
-  title: string;
-  subtitle: string;
-  onPress: () => void;
-}) {
-  return (
-    <TouchableOpacity style={styles.menuItem} onPress={onPress}>
-      <View style={styles.menuIcon}>
-        {icon}
-      </View>
-      <View style={styles.menuContent}>
-        <Typography variant="h4">{title}</Typography>
-        <Typography variant="body2" color="#001E3C">{subtitle}</Typography>
-      </View>
-      <ChevronRight size={16} color="#D8DDE6" />
-    </TouchableOpacity>
-  );
-}
-
-function SocialButton({ title, onPress, variant }: {
-  title: string;
-  onPress: () => void;
-  variant: 'primary' | 'secondary';
-}) {
-  return (
-    <AnimatedButton
-      title={title}
-      onPress={onPress}
-      variant={variant}
-      size="md"
-      gradient
-      style={styles.socialButton}
-    />
+        {/* Sign Out */}
+        <View style={styles.signOutSection}>
+          <TouchableOpacity style={styles.signOutButton}>
+            <LogOut size={20} color="#EF4444" />
+            <Typography variant="h4" color="#EF4444" style={styles.signOutText}>
+              Sign Out
+            </Typography>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F9FAFB',
   },
   header: {
-    paddingHorizontal: 24,
-    paddingTop: 60,
+    paddingTop: 50,
     paddingBottom: 32,
-  },
-  headerContent: {
-    flex: 1,
+    paddingHorizontal: 20,
   },
   headerTop: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 24,
+  },
+  headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 12,
   },
-  statsSection: {
-    paddingHorizontal: 24,
-    paddingVertical: 24,
-    marginTop: -16,
+  headerText: {
+    gap: 2,
   },
-  statsCard: {
-    marginBottom: 0,
-  },
-  statsGrid: {
-    gap: 20,
-  },
-  statItem: {
+  headerRight: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 16,
   },
-  statContent: {
+  headerButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerTitle: {
+    fontWeight: '700',
+    marginBottom: 8,
+  },
+  headerSubtitle: {
+    lineHeight: 20,
+  },
+  content: {
     flex: 1,
   },
   section: {
-    paddingHorizontal: 24,
-    paddingBottom: 24,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
   },
   sectionTitle: {
     marginBottom: 16,
+    fontWeight: '600',
+    color: '#374151',
   },
-  menuList: {
+  menuCard: {
     padding: 0,
     overflow: 'hidden',
   },
   menuItem: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 16,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+  },
+  menuItemBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: '#D8DDE6',
+    borderBottomColor: '#F3F4F6',
+  },
+  menuItemLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
   },
   menuIcon: {
-    marginRight: 16,
     width: 40,
     height: 40,
     borderRadius: 12,
+    backgroundColor: '#F9FAFB',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#D8DDE6',
+    marginRight: 16,
   },
   menuContent: {
     flex: 1,
   },
-  aboutSection: {
-    paddingHorizontal: 24,
-    paddingBottom: 24,
+  menuTitle: {
+    fontWeight: '500',
+    marginBottom: 2,
   },
-  aboutCard: {
-    alignItems: 'center',
-    padding: 32,
+  menuSubtitle: {
+    fontSize: 13,
+    lineHeight: 16,
   },
-  aboutHeader: {
+  appInfoSection: {
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+  },
+  appInfoCard: {
+    padding: 20,
+  },
+  appInfoHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
-    gap: 12,
+    marginBottom: 12,
+    gap: 16,
   },
-  aboutTitle: {
-    marginBottom: 0,
+  appInfoText: {
+    flex: 1,
   },
-  aboutDescription: {
-    textAlign: 'center',
-    marginBottom: 24,
-    lineHeight: 24,
+  appName: {
+    fontWeight: '600',
+    marginBottom: 2,
   },
-  aboutStats: {
+  appDescription: {
+    lineHeight: 20,
+  },
+  signOutSection: {
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    paddingBottom: 32,
+  },
+  signOutButton: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-  },
-  aboutStat: {
     alignItems: 'center',
-  },
-  socialSection: {
-    paddingHorizontal: 24,
-    paddingBottom: 24,
-  },
-  socialLinks: {
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
+    paddingVertical: 16,
+    borderRadius: 12,
     gap: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
   },
-  socialButton: {
-    width: '100%',
-  },
-  versionSection: {
-    alignItems: 'center',
-    paddingVertical: 32,
-    gap: 4,
+  signOutText: {
+    fontWeight: '500',
   },
 });

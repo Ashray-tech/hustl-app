@@ -125,30 +125,6 @@ export default function HomeScreen() {
       </LinearGradient>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Main CTA Section */}
-        <View style={styles.ctaSection}>
-          <LinearGradient
-            colors={['#4F46E5', '#3730A3']}
-            style={styles.ctaCard}
-          >
-            <Typography variant="h2" color="#FFFFFF" style={styles.ctaTitle}>
-              Need Something Else?
-            </Typography>
-            <Typography variant="body1" color="rgba(255,255,255,0.9)" style={styles.ctaDescription}>
-              Create a custom task and get matched with verified students around campus
-            </Typography>
-            <View style={styles.ctaButtons}>
-              <AnimatedButton
-                title="Post a Task"
-                onPress={() => {}}
-                variant="secondary"
-                size="md"
-                style={styles.ctaButton}
-              />
-            </View>
-          </LinearGradient>
-        </View>
-
         {/* Popular Tasks Section */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
@@ -401,34 +377,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-  },
-  ctaSection: {
-    padding: 20,
-    backgroundColor: '#F8FAFC',
-  },
-  ctaCard: {
-    borderRadius: 20,
-    padding: 32,
-    alignItems: 'center',
-  },
-  ctaTitle: {
-    textAlign: 'center',
-    marginBottom: 12,
-    fontWeight: '700',
-  },
-  ctaDescription: {
-    textAlign: 'center',
-    marginBottom: 24,
-    lineHeight: 24,
-  },
-  ctaButtons: {
-    flexDirection: 'row',
-    gap: 12,
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  ctaButton: {
-    minWidth: 140,
   },
   section: {
     padding: 20,

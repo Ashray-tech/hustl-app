@@ -145,14 +145,6 @@ export default function HomeScreen() {
                 size="md"
                 style={styles.ctaButton}
               />
-              <AnimatedButton
-                title="Browse Tasks"
-                onPress={() => {}}
-                variant="outline"
-                size="md"
-                style={[styles.ctaButton, { borderColor: 'rgba(255,255,255,0.3)' }]}
-                textStyle={{ color: '#FFFFFF' }}
-              />
             </View>
           </LinearGradient>
         </View>
@@ -292,6 +284,49 @@ export default function HomeScreen() {
                 </Typography>
               </ModernCard>
             ))}
+          </View>
+        </View>
+
+        {/* Why Choose Hustl */}
+        <View style={styles.whyChooseSection}>
+          <Typography variant="h3" style={styles.sectionTitle}>⭐ Why Choose Hustl?</Typography>
+          
+          <View style={styles.featuresGrid}>
+            <ModernCard style={styles.featureCard}>
+              <View style={styles.featureIcon}>
+                <View style={[styles.iconCircle, { backgroundColor: '#4F46E5' }]}>
+                  <Typography variant="h3" color="#FFFFFF">🔒</Typography>
+                </View>
+              </View>
+              <Typography variant="h4" style={styles.featureTitle}>Safe & Secure</Typography>
+              <Typography variant="body2" color="#6B7280" style={styles.featureDescription}>
+                Verified students with secure payment and safety features
+              </Typography>
+            </ModernCard>
+
+            <ModernCard style={styles.featureCard}>
+              <View style={styles.featureIcon}>
+                <View style={[styles.iconCircle, { backgroundColor: '#F97316' }]}>
+                  <Typography variant="h3" color="#FFFFFF">👥</Typography>
+                </View>
+              </View>
+              <Typography variant="h4" style={styles.featureTitle}>Campus Community</Typography>
+              <Typography variant="body2" color="#6B7280" style={styles.featureDescription}>
+                Connect with fellow students in a trusted campus environment
+              </Typography>
+            </ModernCard>
+
+            <ModernCard style={styles.featureCard}>
+              <View style={styles.featureIcon}>
+                <View style={[styles.iconCircle, { backgroundColor: '#10B981' }]}>
+                  <Typography variant="h3" color="#FFFFFF">💰</Typography>
+                </View>
+              </View>
+              <Typography variant="h4" style={styles.featureTitle}>Flexible Earnings</Typography>
+              <Typography variant="body2" color="#6B7280" style={styles.featureDescription}>
+                Set your own rates and work when it fits your schedule
+              </Typography>
+            </ModernCard>
           </View>
         </View>
 
@@ -552,9 +587,39 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     fontStyle: 'italic',
   },
-  finalCTA: {
+  whyChooseSection: {
     padding: 20,
     backgroundColor: '#F8FAFC',
+  },
+  featuresGrid: {
+    marginTop: 20,
+    gap: 16,
+  },
+  featureCard: {
+    padding: 24,
+    alignItems: 'center',
+  },
+  featureIcon: {
+    marginBottom: 16,
+  },
+  iconCircle: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  featureTitle: {
+    marginBottom: 8,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  featureDescription: {
+    textAlign: 'center',
+    lineHeight: 20,
+  },
+  finalCTA: {
+    padding: 20,
     alignItems: 'center',
   },
   finalCTATitle: {

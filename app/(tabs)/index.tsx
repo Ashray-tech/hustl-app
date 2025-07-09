@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Image, TextInput, StatusBar } from 'react-native';
-import { Bell, User as UserIcon, Search, Filter, Coffee, Dumbbell, Car, FileText, Heart, ShoppingBag, Star } from 'lucide-react-native';
+import { Bell, User as UserIcon, Search, Filter, Coffee, Dumbbell, Car, FileText, Heart, ShoppingBag, Star, Shield, Users, Award } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { HustlLogo } from '@/components/HustlLogo';
 import { Typography } from '@/components/ui/Typography';
@@ -92,11 +92,11 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#4F46E5" />
+      <StatusBar barStyle="light-content" backgroundColor="#4338CA" />
       
       {/* Header */}
       <LinearGradient
-        colors={['#4F46E5', '#3730A3']}
+        colors={['#4338CA', '#3730A3']}
         style={styles.header}
       >
         <View style={styles.headerTop}>
@@ -117,38 +117,48 @@ export default function HomeScreen() {
               style={styles.signInButton}
               textStyle={{ color: '#FFFFFF', fontSize: 14 }}
             />
-            <TouchableOpacity style={styles.profileButton}>
-              <UserIcon size={20} color="#FFFFFF" />
+            <View style={styles.profileBadge}>
+              <Typography variant="caption" color="#FFFFFF" style={styles.badgeText}>B</Typography>
+            </View>
+          </View>
+        </View>
+
+        {/* Main CTA Card */}
+        <View style={styles.ctaCard}>
+          <Typography variant="h3" color="#FFFFFF" style={styles.ctaTitle}>
+            Running late for class?
+          </Typography>
+          <Typography variant="body1" color="rgba(255,255,255,0.9)" style={styles.ctaSubtitle}>
+            Get coffee delivered right to you
+          </Typography>
+          <Typography variant="body2" color="rgba(255,255,255,0.8)" style={styles.ctaDescription}>
+            Campus errands, covered. Coffee runs, printing, pet care — Hustl connects Gators in minutes.
+          </Typography>
+          
+          <View style={styles.ctaButtons}>
+            <AnimatedButton
+              title="Post a Task"
+              onPress={() => {}}
+              variant="secondary"
+              size="md"
+              style={styles.postTaskButton}
+            />
+            <TouchableOpacity style={styles.coffeeRunButton}>
+              <Typography variant="body2" color="#4338CA" style={styles.coffeeRunText}>
+                Coffee Run
+              </Typography>
             </TouchableOpacity>
           </View>
+          
+          <TouchableOpacity style={styles.browseTasksButton}>
+            <Typography variant="body2" color="#4338CA" style={styles.browseTasksText}>
+              Browse Tasks
+            </Typography>
+          </TouchableOpacity>
         </View>
       </LinearGradient>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Main CTA Section */}
-        <View style={styles.ctaSection}>
-          <LinearGradient
-            colors={['#4F46E5', '#3730A3']}
-            style={styles.ctaCard}
-          >
-            <Typography variant="h2" color="#FFFFFF" style={styles.ctaTitle}>
-              Need Something Else?
-            </Typography>
-            <Typography variant="body1" color="rgba(255,255,255,0.9)" style={styles.ctaDescription}>
-              Create a custom task and get matched with verified students around campus
-            </Typography>
-            <View style={styles.ctaButtons}>
-              <AnimatedButton
-                title="Post a Task"
-                onPress={() => {}}
-                variant="secondary"
-                size="md"
-                style={styles.ctaButton}
-              />
-            </View>
-          </LinearGradient>
-        </View>
-
         {/* Popular Tasks Section */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
@@ -294,8 +304,8 @@ export default function HomeScreen() {
           <View style={styles.featuresGrid}>
             <ModernCard style={styles.featureCard}>
               <View style={styles.featureIcon}>
-                <View style={[styles.iconCircle, { backgroundColor: '#4F46E5' }]}>
-                  <Typography variant="h3" color="#FFFFFF">🔒</Typography>
+                <View style={[styles.iconCircle, { backgroundColor: '#4338CA' }]}>
+                  <Shield size={24} color="#FFFFFF" />
                 </View>
               </View>
               <Typography variant="h4" style={styles.featureTitle}>Safe & Secure</Typography>
@@ -307,7 +317,7 @@ export default function HomeScreen() {
             <ModernCard style={styles.featureCard}>
               <View style={styles.featureIcon}>
                 <View style={[styles.iconCircle, { backgroundColor: '#F97316' }]}>
-                  <Typography variant="h3" color="#FFFFFF">👥</Typography>
+                  <Users size={24} color="#FFFFFF" />
                 </View>
               </View>
               <Typography variant="h4" style={styles.featureTitle}>Campus Community</Typography>
@@ -319,7 +329,7 @@ export default function HomeScreen() {
             <ModernCard style={styles.featureCard}>
               <View style={styles.featureIcon}>
                 <View style={[styles.iconCircle, { backgroundColor: '#10B981' }]}>
-                  <Typography variant="h3" color="#FFFFFF">💰</Typography>
+                  <Award size={24} color="#FFFFFF" />
                 </View>
               </View>
               <Typography variant="h4" style={styles.featureTitle}>Flexible Earnings</Typography>
@@ -332,26 +342,34 @@ export default function HomeScreen() {
 
         {/* Final CTA */}
         <View style={styles.finalCTA}>
-          <Typography variant="h3" style={styles.finalCTATitle}>Ready to Get Started?</Typography>
-          <Typography variant="body2" color="#6B7280" style={styles.finalCTADescription}>
-            Join thousands of UF students already using Hustl to connect and help each other succeed
-          </Typography>
-          <View style={styles.finalCTAButtons}>
-            <AnimatedButton
-              title="Start Using Hustl"
-              onPress={() => {}}
-              variant="primary"
-              size="lg"
-              style={styles.finalCTAButton}
-            />
-            <AnimatedButton
-              title="Contact Support"
-              onPress={() => {}}
-              variant="outline"
-              size="lg"
-              style={styles.finalCTAButton}
-            />
-          </View>
+          <LinearGradient
+            colors={['#4338CA', '#3730A3']}
+            style={styles.finalCTACard}
+          >
+            <Typography variant="h3" color="#FFFFFF" style={styles.finalCTATitle}>
+              Ready to Get Started?
+            </Typography>
+            <Typography variant="body2" color="rgba(255,255,255,0.9)" style={styles.finalCTADescription}>
+              Join thousands of UF students already using Hustl to connect and help each other succeed
+            </Typography>
+            <View style={styles.finalCTAButtons}>
+              <AnimatedButton
+                title="Start Using Hustl"
+                onPress={() => {}}
+                variant="secondary"
+                size="lg"
+                style={styles.finalCTAButton}
+              />
+              <AnimatedButton
+                title="Contact Support"
+                onPress={() => {}}
+                variant="outline"
+                size="lg"
+                style={[styles.finalCTAButton, { borderColor: 'rgba(255,255,255,0.3)' }]}
+                textStyle={{ color: '#FFFFFF' }}
+              />
+            </View>
+          </LinearGradient>
         </View>
       </ScrollView>
     </View>
@@ -372,6 +390,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 24,
   },
   headerLeft: {
     flexDirection: 'row',
@@ -391,44 +410,66 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
-  profileButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: 'rgba(255,255,255,0.2)',
+  profileBadge: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#F97316',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  content: {
-    flex: 1,
-  },
-  ctaSection: {
-    padding: 20,
-    backgroundColor: '#F8FAFC',
+  badgeText: {
+    fontWeight: '700',
+    fontSize: 14,
   },
   ctaCard: {
-    borderRadius: 20,
-    padding: 32,
-    alignItems: 'center',
+    backgroundColor: 'rgba(67, 56, 202, 0.9)',
+    borderRadius: 16,
+    padding: 24,
+    marginTop: 8,
   },
   ctaTitle: {
-    textAlign: 'center',
-    marginBottom: 12,
     fontWeight: '700',
+    marginBottom: 8,
+  },
+  ctaSubtitle: {
+    fontWeight: '600',
+    marginBottom: 12,
   },
   ctaDescription: {
-    textAlign: 'center',
-    marginBottom: 24,
-    lineHeight: 24,
+    lineHeight: 20,
+    marginBottom: 20,
   },
   ctaButtons: {
     flexDirection: 'row',
     gap: 12,
-    flexWrap: 'wrap',
+    marginBottom: 16,
+  },
+  postTaskButton: {
+    flex: 1,
+  },
+  coffeeRunButton: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignItems: 'center',
     justifyContent: 'center',
   },
-  ctaButton: {
-    minWidth: 140,
+  coffeeRunText: {
+    fontWeight: '600',
+  },
+  browseTasksButton: {
+    backgroundColor: '#FFFFFF',
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  browseTasksText: {
+    fontWeight: '600',
+  },
+  content: {
+    flex: 1,
   },
   section: {
     padding: 20,
@@ -543,7 +584,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#4F46E5',
+    backgroundColor: '#4338CA',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -620,6 +661,10 @@ const styles = StyleSheet.create({
   },
   finalCTA: {
     padding: 20,
+  },
+  finalCTACard: {
+    borderRadius: 20,
+    padding: 32,
     alignItems: 'center',
   },
   finalCTATitle: {

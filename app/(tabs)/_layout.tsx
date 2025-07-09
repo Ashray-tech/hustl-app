@@ -1,13 +1,13 @@
 import { Tabs } from 'expo-router';
-import { Chrome as Home, List, Plus, MessageCircle, User } from 'lucide-react-native';
+import { Home, List, Plus, MessageCircle, User } from 'lucide-react-native';
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#4F46E5',
-        tabBarInactiveTintColor: '#9CA3AF',
+        tabBarActiveTintColor: '#F97316',
+        tabBarInactiveTintColor: '#6B7280',
         tabBarStyle: {
           backgroundColor: '#FFFFFF',
           borderTopWidth: 1,
@@ -25,7 +25,6 @@ export default function TabLayout() {
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-          paddingHorizontal: 4,
         },
       }}>
       <Tabs.Screen

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, TextInput, StatusBar, Alert } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, TextInput, StatusBar, Alert, Image } from 'react-native';
 import { Bell, User as UserIcon, MapPin, DollarSign, Clock, Camera, Coffee, Dumbbell, Car, FileText, Heart, ShoppingBag } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { HustlLogo } from '@/components/HustlLogo';
@@ -19,12 +19,48 @@ export default function PostScreen() {
   });
 
   const categories = [
-    { id: 'coffee', name: 'Coffee Run', icon: <Coffee size={20} color="#FFFFFF" />, gradient: ['#F97316', '#EA580C'] },
-    { id: 'workout', name: 'Workout Partner', icon: <Dumbbell size={20} color="#FFFFFF" />, gradient: ['#3B82F6', '#2563EB'] },
-    { id: 'rides', name: 'Campus Rides', icon: <Car size={20} color="#FFFFFF" />, gradient: ['#10B981', '#059669'] },
-    { id: 'printing', name: 'Printing', icon: <FileText size={20} color="#FFFFFF" />, gradient: ['#8B5CF6', '#7C3AED'] },
-    { id: 'petcare', name: 'Pet Care', icon: <Heart size={20} color="#FFFFFF" />, gradient: ['#EF4444', '#DC2626'] },
-    { id: 'shopping', name: 'Shopping', icon: <ShoppingBag size={20} color="#FFFFFF" />, gradient: ['#F59E0B', '#D97706'] },
+    { 
+      id: 'coffee', 
+      name: 'Coffee Run', 
+      icon: <Coffee size={20} color="#FFFFFF" />, 
+      gradient: ['#F97316', '#EA580C'],
+      image: 'https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=300'
+    },
+    { 
+      id: 'workout', 
+      name: 'Workout Partner', 
+      icon: <Dumbbell size={20} color="#FFFFFF" />, 
+      gradient: ['#3B82F6', '#2563EB'],
+      image: 'https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=300'
+    },
+    { 
+      id: 'rides', 
+      name: 'Campus Rides', 
+      icon: <Car size={20} color="#FFFFFF" />, 
+      gradient: ['#10B981', '#059669'],
+      image: 'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=300'
+    },
+    { 
+      id: 'printing', 
+      name: 'Printing', 
+      icon: <FileText size={20} color="#FFFFFF" />, 
+      gradient: ['#8B5CF6', '#7C3AED'],
+      image: 'https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=300'
+    },
+    { 
+      id: 'petcare', 
+      name: 'Pet Care', 
+      icon: <Heart size={20} color="#FFFFFF" />, 
+      gradient: ['#EF4444', '#DC2626'],
+      image: 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=300'
+    },
+    { 
+      id: 'shopping', 
+      name: 'Shopping', 
+      icon: <ShoppingBag size={20} color="#FFFFFF" />, 
+      gradient: ['#F59E0B', '#D97706'],
+      image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=300'
+    },
   ];
 
   const handleSubmit = () => {
@@ -108,15 +144,26 @@ export default function PostScreen() {
                 ]}
                 onPress={() => setFormData(prev => ({ ...prev, category: category.id }))}
               >
-                <LinearGradient
-                  colors={category.gradient}
-                  style={styles.categoryCardInner}
-                >
-                  {category.icon}
-                  <Typography variant="body2" color="#FFFFFF" style={styles.categoryText}>
-                    {category.name}
-                  </Typography>
-                </LinearGradient>
+                <View style={styles.categoryCardContent}>
+                  <Image 
+                    source={{ uri: category.image }} 
+                    style={styles.categoryImage}
+                    accessibilityLabel={`${category.name} category image`}
+                  />
+                  <LinearGradient
+                    colors={['transparent', 'rgba(0,0,0,0.7)']}
+                    style={styles.categoryOverlay}
+                  >
+                    <View style={styles.categoryInfo}>
+                      <View style={styles.categoryIcon}>
+                        {category.icon}
+                      </View>
+                      <Typography variant="body2" color="#FFFFFF" style={styles.categoryText}>
+                        {category.name}
+                      </Typography>
+                    </View>
+                  </LinearGradient>
+                </View>
               </TouchableOpacity>
             ))}
           </View>
@@ -266,6 +313,11 @@ const styles = StyleSheet.create({
     width: '47%',
     borderRadius: 12,
     overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   categoryCardSelected: {
     transform: [{ scale: 1.02 }],
@@ -275,12 +327,35 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 8,
   },
-  categoryCardInner: {
-    padding: 16,
+  categoryCardContent: {
+    position: 'relative',
+    height: 100,
+  },
+  categoryImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  categoryOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: '100%',
+    justifyContent: 'flex-end',
+  },
+  categoryInfo: {
+    padding: 12,
     alignItems: 'center',
-    gap: 8,
-    minHeight: 80,
+  },
+  categoryIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255,255,255,0.2)',
     justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 4,
   },
   categoryText: {
     textAlign: 'center',

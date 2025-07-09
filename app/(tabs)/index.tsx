@@ -17,6 +17,7 @@ export default function HomeScreen() {
       description: 'Get coffee delivered right to you',
       icon: <Coffee size={24} color="#FFFFFF" />,
       gradient: ['#F97316', '#EA580C'],
+      image: 'https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=400',
     },
     {
       id: 2,
@@ -24,6 +25,7 @@ export default function HomeScreen() {
       description: 'Find a gym or sports buddy',
       icon: <Dumbbell size={24} color="#FFFFFF" />,
       gradient: ['#3B82F6', '#2563EB'],
+      image: 'https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=400',
     },
     {
       id: 3,
@@ -31,6 +33,7 @@ export default function HomeScreen() {
       description: 'Safe transportation around campus',
       icon: <Car size={24} color="#FFFFFF" />,
       gradient: ['#10B981', '#059669'],
+      image: 'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=400',
     },
     {
       id: 4,
@@ -38,6 +41,7 @@ export default function HomeScreen() {
       description: 'Print documents and assignments',
       icon: <FileText size={24} color="#FFFFFF" />,
       gradient: ['#8B5CF6', '#7C3AED'],
+      image: 'https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=400',
     },
     {
       id: 5,
@@ -45,6 +49,7 @@ export default function HomeScreen() {
       description: 'Pet sitting and walking services',
       icon: <Heart size={24} color="#FFFFFF" />,
       gradient: ['#EF4444', '#DC2626'],
+      image: 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=400',
     },
     {
       id: 6,
@@ -52,6 +57,7 @@ export default function HomeScreen() {
       description: 'Grocery and item pickup',
       icon: <ShoppingBag size={24} color="#FFFFFF" />,
       gradient: ['#F59E0B', '#D97706'],
+      image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=400',
     },
   ];
 
@@ -116,15 +122,6 @@ export default function HomeScreen() {
               textStyle={{ color: '#FFFFFF' }}
             />
           </View>
-          
-          <AnimatedButton
-            title="Browse Tasks"
-            onPress={() => {}}
-            variant="outline"
-            size="lg"
-            style={styles.browseButton}
-            textStyle={{ color: '#FFFFFF' }}
-          />
         </View>
       </LinearGradient>
 
@@ -159,20 +156,29 @@ export default function HomeScreen() {
           <View style={styles.taskGrid}>
             {popularTasks.map((task) => (
               <TouchableOpacity key={task.id} style={styles.taskCard}>
-                <LinearGradient
-                  colors={task.gradient}
-                  style={styles.taskCardGradient}
-                >
-                  <View style={styles.taskIcon}>
-                    {task.icon}
-                  </View>
-                  <Typography variant="h4" color="#FFFFFF" style={styles.taskTitle}>
-                    {task.title}
-                  </Typography>
-                  <Typography variant="body2" color="rgba(255,255,255,0.9)" style={styles.taskDescription}>
-                    {task.description}
-                  </Typography>
-                </LinearGradient>
+                <View style={styles.taskCardContent}>
+                  <Image 
+                    source={{ uri: task.image }} 
+                    style={styles.taskImage}
+                    accessibilityLabel={`${task.title} task category image`}
+                  />
+                  <LinearGradient
+                    colors={['transparent', 'rgba(0,0,0,0.8)']}
+                    style={styles.taskOverlay}
+                  >
+                    <View style={styles.taskInfo}>
+                      <View style={styles.taskIcon}>
+                        {task.icon}
+                      </View>
+                      <Typography variant="h4" color="#FFFFFF" style={styles.taskTitle}>
+                        {task.title}
+                      </Typography>
+                      <Typography variant="body2" color="rgba(255,255,255,0.9)" style={styles.taskDescription}>
+                        {task.description}
+                      </Typography>
+                    </View>
+                  </LinearGradient>
+                </View>
               </TouchableOpacity>
             ))}
           </View>
@@ -271,11 +277,6 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.3)',
     paddingHorizontal: 20,
   },
-  browseButton: {
-    borderColor: 'rgba(255,255,255,0.3)',
-    width: '100%',
-    maxWidth: 280,
-  },
   content: {
     flex: 1,
   },
@@ -321,20 +322,47 @@ const styles = StyleSheet.create({
     width: '47%',
     borderRadius: 16,
     overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
   },
-  taskCardGradient: {
-    padding: 20,
-    minHeight: 140,
-    justifyContent: 'center',
+  taskCardContent: {
+    position: 'relative',
+    height: 180,
+  },
+  taskImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  taskOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: '100%',
+    justifyContent: 'flex-end',
+  },
+  taskInfo: {
+    padding: 16,
     alignItems: 'center',
   },
   taskIcon: {
-    marginBottom: 12,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8,
   },
   taskTitle: {
     textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: 4,
     fontWeight: '600',
+    fontSize: 16,
   },
   taskDescription: {
     textAlign: 'center',

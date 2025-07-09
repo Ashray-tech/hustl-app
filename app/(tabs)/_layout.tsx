@@ -21,6 +21,12 @@ export default function TabLayout() {
           fontWeight: '600',
           marginTop: 4,
         },
+        tabBarItemStyle: {
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingHorizontal: 4,
+        },
       }}>
       <Tabs.Screen
         name="index"

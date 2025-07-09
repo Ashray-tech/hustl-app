@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Alert, Animated, Image, FlatList } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Alert, Animated, Image, FlatList, Modal } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { Coffee, Printer, Heart, ShoppingBag, MapPin, DollarSign, Clock, Camera, Star, UtensilsCrossed, Car, Dumbbell } from 'lucide-react-native';
+import { Coffee, Printer, Heart, ShoppingBag, MapPin, DollarSign, Clock, Camera, Star, UtensilsCrossed, Car, Dumbbell, X, ChevronDown } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { HustlLogo } from '@/components/HustlLogo';
 import { ModernCard } from '@/components/ui/ModernCard';
@@ -22,6 +22,7 @@ export default function PostTaskScreen() {
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [showContactModal, setShowContactModal] = useState(false);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -37,43 +38,37 @@ export default function PostTaskScreen() {
       id: 'coffee', 
       name: 'Coffee Run', 
       icon: <Coffee size={24} color="#FFFFFF" />, 
-      variant: 'secondary' as const,
-      cardVariant: 'secondary' as const // Orange
+      gradient: ['#EA580C', '#DC2626']
     },
     { 
       id: 'food', 
       name: 'Food Pickup', 
       icon: <UtensilsCrossed size={24} color="#FFFFFF" />, 
-      variant: 'primary' as const,
-      cardVariant: 'primary' as const // Blue
+      gradient: ['#1E40AF', '#1E3A8A']
     },
     { 
       id: 'printing', 
       name: 'Printing', 
-      icon: <Printer size={24} color="#001E3C" />, 
-      variant: 'accent' as const,
-      cardVariant: 'accent' as const // Grey/White
+      icon: <Printer size={24} color="#FFFFFF" />, 
+      gradient: ['#EA580C', '#DC2626']
     },
     { 
       id: 'petcare', 
       name: 'Pet Care', 
       icon: <Heart size={24} color="#FFFFFF" />, 
-      variant: 'secondary' as const,
-      cardVariant: 'secondary' as const // Orange
+      gradient: ['#1E40AF', '#1E3A8A']
     },
     { 
       id: 'rides', 
       name: 'Campus Rides', 
       icon: <Car size={24} color="#FFFFFF" />, 
-      variant: 'primary' as const,
-      cardVariant: 'primary' as const // Blue
+      gradient: ['#EA580C', '#DC2626']
     },
     { 
       id: 'workout', 
       name: 'Workout Buddy', 
-      icon: <Dumbbell size={24} color="#001E3C" />, 
-      variant: 'accent' as const,
-      cardVariant: 'accent' as const // Grey/White
+      icon: <Dumbbell size={24} color="#FFFFFF" />, 
+      gradient: ['#1E40AF', '#1E3A8A']
     },
   ];
 
@@ -90,7 +85,6 @@ export default function PostTaskScreen() {
       image: 'https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=400',
       urgent: true,
       distance: '0.2 mi',
-      cardVariant: 'secondary', // Orange
       poster: {
         name: 'Sarah M.',
         rating: 4.9,
@@ -109,7 +103,6 @@ export default function PostTaskScreen() {
       image: 'https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=400',
       urgent: false,
       distance: '0.5 mi',
-      cardVariant: 'primary', // Blue
       poster: {
         name: 'Mike R.',
         rating: 5.0,
@@ -128,7 +121,6 @@ export default function PostTaskScreen() {
       image: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400',
       urgent: false,
       distance: '0.3 mi',
-      cardVariant: 'accent', // Grey/White
       poster: {
         name: 'Emma K.',
         rating: 4.8,
@@ -184,7 +176,7 @@ export default function PostTaskScreen() {
       
       {/* Header */}
       <LinearGradient
-        colors={['#0021A5', '#001E3C']}
+        colors={['#1E40AF', '#1E3A8A']}
         style={styles.header}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -193,9 +185,9 @@ export default function PostTaskScreen() {
           <View style={styles.headerTop}>
             <HustlLogo size={32} />
             <Typography variant="h2" color="#ffffff">Post Task</Typography>
-            <Badge variant="secondary" size="sm">
-              <Typography variant="caption" color="#FFFFFF">Live</Typography>
-            </Badge>
+            <TouchableOpacity onPress={() => setShowContactModal(true)} style={styles.contactButton}>
+              <Typography variant="body2" color="#FFFFFF">Contact Us</Typography>
+            </TouchableOpacity>
           </View>
 
           <Typography variant="body2" color="rgba(255,255,255,0.8)" style={styles.headerSubtitle}>
@@ -229,28 +221,27 @@ export default function PostTaskScreen() {
                 ]}
                 onPress={() => updateFormData('category', category.id)}
               >
-                <ModernCard 
-                  style={styles.categoryCardInner} 
-                  variant={category.variant}
+                <LinearGradient
+                  colors={category.gradient}
+                  style={styles.categoryCardInner}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
                 >
                   <View style={styles.categoryIcon}>{category.icon}</View>
-                  <Typography 
-                    variant="h4" 
-                    color={category.variant === 'accent' ? '#001E3C' : '#FFFFFF'}
-                  >
+                  <Typography variant="h4" color="#FFFFFF" style={styles.categoryTitle}>
                     {category.name}
                   </Typography>
-                </ModernCard>
+                </LinearGradient>
               </TouchableOpacity>
             ))}
           </View>
-          {errors.category && <Typography variant="caption" color="#E6501E">{errors.category}</Typography>}
+          {errors.category && <Typography variant="caption" color="#EF4444">{errors.category}</Typography>}
         </Animated.View>
 
-        {/* Category Task Cards */}
+        {/* Popular Tasks */}
         <Animated.View style={[styles.categoryTasksSection, { opacity: fadeAnim }]}>
           <View style={styles.sectionHeader}>
-            <Typography variant="h3">Popular in Categories</Typography>
+            <Typography variant="h3">Popular Tasks</Typography>
             <Badge variant="secondary" size="sm">
               <Typography variant="caption" color="#FFFFFF">Live</Typography>
             </Badge>
@@ -288,7 +279,7 @@ export default function PostTaskScreen() {
             value={formData.location}
             onChangeText={(value) => updateFormData('location', value)}
             error={errors.location}
-            icon={<MapPin size={20} color="#001E3C" />}
+            icon={<MapPin size={20} color="#6B7280" />}
           />
         </Animated.View>
 
@@ -302,7 +293,7 @@ export default function PostTaskScreen() {
               onChangeText={(value) => updateFormData('budget', value)}
               error={errors.budget}
               keyboardType="numeric"
-              icon={<DollarSign size={20} color="#001E3C" />}
+              icon={<DollarSign size={20} color="#6B7280" />}
               containerStyle={styles.halfInput}
             />
           </View>
@@ -314,7 +305,7 @@ export default function PostTaskScreen() {
               value={formData.timeEstimate}
               onChangeText={(value) => updateFormData('timeEstimate', value)}
               error={errors.timeEstimate}
-              icon={<Clock size={20} color="#001E3C" />}
+              icon={<Clock size={20} color="#6B7280" />}
               containerStyle={styles.halfInput}
             />
           </View>
@@ -322,10 +313,10 @@ export default function PostTaskScreen() {
 
         {/* Add Photo */}
         <Animated.View style={[styles.photoSection, { opacity: fadeAnim }]}>
-          <ModernCard style={styles.photoCard} variant="accent">
+          <ModernCard style={styles.photoCard}>
             <TouchableOpacity style={styles.photoButton}>
-              <Camera size={24} color="#001E3C" />
-              <Typography variant="h4" color="#001E3C" style={styles.photoButtonText}>
+              <Camera size={24} color="#6B7280" />
+              <Typography variant="h4" color="#6B7280" style={styles.photoButtonText}>
                 Add Photo (Optional)
               </Typography>
             </TouchableOpacity>
@@ -343,63 +334,46 @@ export default function PostTaskScreen() {
             style={styles.submitButton}
           />
 
-          <Typography variant="body2" color="#001E3C" style={styles.termsText}>
+          <Typography variant="body2" color="#6B7280" style={styles.termsText}>
             By posting a task, you agree to our Terms of Service. 
             Payment will be held securely until completion.
           </Typography>
         </Animated.View>
       </ScrollView>
+
+      {/* Contact Modal */}
+      <Modal
+        visible={showContactModal}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setShowContactModal(false)}
+      >
+        <ContactModal onClose={() => setShowContactModal(false)} />
+      </Modal>
     </View>
   );
 }
 
 function CategoryTaskCard({ task }: { task: any }) {
-  const getHeaderColors = () => {
-    switch (task.cardVariant) {
-      case 'secondary': // Orange
-        return {
-          backgroundColor: '#E6501E',
-          textColor: '#FFFFFF'
-        };
-      case 'primary': // Blue
-        return {
-          backgroundColor: '#0021A5',
-          textColor: '#FFFFFF'
-        };
-      case 'accent': // Grey/White
-        return {
-          backgroundColor: '#D8DDE6',
-          textColor: '#001E3C'
-        };
-      default:
-        return {
-          backgroundColor: '#D8DDE6',
-          textColor: '#001E3C'
-        };
-    }
-  };
-
-  const headerColors = getHeaderColors();
-
   return (
     <ModernCard style={styles.categoryTaskCard} onPress={() => {}}>
-      <View style={[styles.taskHeader, { backgroundColor: headerColors.backgroundColor }]}>
+      <View style={styles.taskHeader}>
         {task.urgent && (
-          <Badge variant="default" size="sm" style={styles.urgentBadge}>
-            <Typography variant="caption" color="#001E3C">Urgent</Typography>
+          <Badge variant="secondary" size="sm">
+            <Typography variant="caption" color="#FFFFFF">Urgent</Typography>
           </Badge>
         )}
         
         <View style={styles.categoryBadge}>
-          {task.category === 'Coffee' && <Coffee size={14} color={headerColors.textColor} />}
-          {task.category === 'Printing' && <Printer size={14} color={headerColors.textColor} />}
-          {task.category === 'Food' && <UtensilsCrossed size={14} color={headerColors.textColor} />}
-          <Typography variant="caption" color={headerColors.textColor} style={styles.categoryText}>
+          {task.category === 'Coffee' && <Coffee size={14} color="#EA580C" />}
+          {task.category === 'Printing' && <Printer size={14} color="#1E40AF" />}
+          {task.category === 'Food' && <UtensilsCrossed size={14} color="#1E40AF" />}
+          <Typography variant="caption" color="#6B7280" style={styles.categoryText}>
             {task.category}
           </Typography>
         </View>
         
-        <Typography variant="h3" color={headerColors.textColor}>${task.price}</Typography>
+        <Typography variant="h3" color="#1E40AF">${task.price}</Typography>
       </View>
       
       <Image source={{ uri: task.image }} style={styles.taskImage} />
@@ -412,13 +386,13 @@ function CategoryTaskCard({ task }: { task: any }) {
         
         <View style={styles.taskMeta}>
           <View style={styles.metaItem}>
-            <MapPin size={14} color="#001E3C" />
-            <Typography variant="body2" color="#001E3C">{task.location}</Typography>
-            <Typography variant="body2" color="#0021A5">• {task.distance}</Typography>
+            <MapPin size={14} color="#6B7280" />
+            <Typography variant="body2" color="#6B7280">{task.location}</Typography>
+            <Typography variant="body2" color="#1E40AF">• {task.distance}</Typography>
           </View>
           <View style={styles.metaItem}>
-            <Clock size={14} color="#001E3C" />
-            <Typography variant="body2" color="#001E3C">{task.time}</Typography>
+            <Clock size={14} color="#6B7280" />
+            <Typography variant="body2" color="#6B7280">{task.time}</Typography>
           </View>
         </View>
         
@@ -427,15 +401,15 @@ function CategoryTaskCard({ task }: { task: any }) {
           <View style={styles.posterInfo}>
             <Typography variant="body2">{task.poster.name}</Typography>
             <View style={styles.posterRating}>
-              <Star size={12} color="#E6501E" fill="#E6501E" />
-              <Typography variant="caption" color="#001E3C">{task.poster.rating}</Typography>
+              <Star size={12} color="#EA580C" fill="#EA580C" />
+              <Typography variant="caption" color="#6B7280">{task.poster.rating}</Typography>
             </View>
           </View>
           
           <AnimatedButton
             title="Accept"
             onPress={() => {}}
-            variant={task.cardVariant === 'accent' ? 'primary' : 'secondary'}
+            variant="primary"
             size="sm"
             gradient
             style={styles.acceptButton}
@@ -443,6 +417,123 @@ function CategoryTaskCard({ task }: { task: any }) {
         </View>
       </View>
     </ModernCard>
+  );
+}
+
+function ContactModal({ onClose }: { onClose: () => void }) {
+  const [selectedForm, setSelectedForm] = useState('general');
+
+  return (
+    <View style={styles.modalContainer}>
+      <LinearGradient
+        colors={['#1E40AF', '#1E3A8A']}
+        style={styles.modalHeader}
+      >
+        <View style={styles.modalHeaderContent}>
+          <Typography variant="h3" color="#FFFFFF">Contact Us</Typography>
+          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+            <X size={24} color="#FFFFFF" />
+          </TouchableOpacity>
+        </View>
+      </LinearGradient>
+      
+      <ScrollView style={styles.modalContent}>
+        <View style={styles.contactSection}>
+          <Typography variant="h4" style={styles.contactLabel}>What can we help you with?</Typography>
+          
+          <View style={styles.formTypeSelector}>
+            <TouchableOpacity
+              style={[
+                styles.formTypeButton,
+                selectedForm === 'general' && styles.formTypeButtonActive
+              ]}
+              onPress={() => setSelectedForm('general')}
+            >
+              <Typography 
+                variant="body2" 
+                color={selectedForm === 'general' ? "#FFFFFF" : "#6B7280"}
+              >
+                General Inquiry
+              </Typography>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.formTypeButton,
+                selectedForm === 'support' && styles.formTypeButtonActive
+              ]}
+              onPress={() => setSelectedForm('support')}
+            >
+              <Typography 
+                variant="body2" 
+                color={selectedForm === 'support' ? "#FFFFFF" : "#6B7280"}
+              >
+                Technical Support
+              </Typography>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.contactForm}>
+          <Input
+            label="Name"
+            placeholder="Your full name"
+            containerStyle={styles.formInput}
+          />
+          
+          <Input
+            label="Email"
+            placeholder="your.email@ufl.edu"
+            keyboardType="email-address"
+            containerStyle={styles.formInput}
+          />
+          
+          <Input
+            label="Subject"
+            placeholder="Brief description of your inquiry"
+            containerStyle={styles.formInput}
+          />
+          
+          <Input
+            label="Message"
+            placeholder="Please provide details about your inquiry..."
+            multiline
+            numberOfLines={6}
+            style={styles.messageArea}
+            containerStyle={styles.formInput}
+          />
+        </View>
+
+        <View style={styles.contactInfo}>
+          <Typography variant="h4" style={styles.contactInfoTitle}>Other Ways to Reach Us</Typography>
+          
+          <View style={styles.contactMethods}>
+            <View style={styles.contactMethod}>
+              <Typography variant="body2" style={styles.contactMethodLabel}>Email Support</Typography>
+              <Typography variant="body2" color="#1E40AF">support@hustl.app</Typography>
+            </View>
+            
+            <View style={styles.contactMethod}>
+              <Typography variant="body2" style={styles.contactMethodLabel}>Response Time</Typography>
+              <Typography variant="body2" color="#6B7280">Usually within 24 hours</Typography>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.modalActions}>
+          <AnimatedButton
+            title="Send Message"
+            onPress={() => {
+              Alert.alert('Message Sent!', 'We\'ll get back to you within 24 hours.');
+              onClose();
+            }}
+            variant="primary"
+            size="lg"
+            gradient
+            style={styles.sendButton}
+          />
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
@@ -462,8 +553,12 @@ const styles = StyleSheet.create({
   headerTop: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 16,
+    justifyContent: 'space-between',
     marginBottom: 8,
+  },
+  contactButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
   },
   headerSubtitle: {
     textAlign: 'center',
@@ -496,9 +591,14 @@ const styles = StyleSheet.create({
   categoryCardInner: {
     padding: 20,
     alignItems: 'center',
+    borderRadius: 16,
   },
   categoryIcon: {
     marginBottom: 12,
+  },
+  categoryTitle: {
+    textAlign: 'center',
+    fontSize: 16,
   },
   categoryTasksSection: {
     marginBottom: 32,
@@ -524,13 +624,10 @@ const styles = StyleSheet.create({
     padding: 16,
     gap: 12,
   },
-  urgentBadge: {
-    backgroundColor: '#FFFFFF',
-  },
   categoryBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.2)',
+    backgroundColor: '#F3F4F6',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
@@ -552,6 +649,7 @@ const styles = StyleSheet.create({
   taskDescription: {
     marginBottom: 16,
     lineHeight: 20,
+    color: '#6B7280',
   },
   taskMeta: {
     gap: 12,
@@ -604,12 +702,13 @@ const styles = StyleSheet.create({
   },
   photoCard: {
     padding: 0,
+    backgroundColor: '#F9FAFB',
   },
   photoButton: {
     padding: 32,
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#D8DDE6',
+    borderColor: '#E5E7EB',
     borderStyle: 'dashed',
     borderRadius: 20,
   },
@@ -625,5 +724,84 @@ const styles = StyleSheet.create({
   termsText: {
     textAlign: 'center',
     lineHeight: 20,
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  modalHeader: {
+    paddingTop: 60,
+    paddingBottom: 20,
+    paddingHorizontal: 24,
+  },
+  modalHeaderContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  closeButton: {
+    padding: 8,
+  },
+  modalContent: {
+    flex: 1,
+  },
+  contactSection: {
+    paddingHorizontal: 24,
+    paddingVertical: 20,
+  },
+  contactLabel: {
+    marginBottom: 16,
+  },
+  formTypeSelector: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  formTypeButton: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    backgroundColor: '#F3F4F6',
+    alignItems: 'center',
+  },
+  formTypeButtonActive: {
+    backgroundColor: '#1E40AF',
+  },
+  contactForm: {
+    paddingHorizontal: 24,
+  },
+  formInput: {
+    marginBottom: 20,
+  },
+  messageArea: {
+    height: 120,
+    textAlignVertical: 'top',
+  },
+  contactInfo: {
+    paddingHorizontal: 24,
+    paddingVertical: 20,
+    backgroundColor: '#F9FAFB',
+    marginTop: 20,
+  },
+  contactInfoTitle: {
+    marginBottom: 16,
+  },
+  contactMethods: {
+    gap: 12,
+  },
+  contactMethod: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 8,
+  },
+  contactMethodLabel: {
+    fontFamily: 'Inter-SemiBold',
+  },
+  modalActions: {
+    padding: 24,
+  },
+  sendButton: {
+    width: '100%',
   },
 });

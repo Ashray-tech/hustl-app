@@ -44,11 +44,11 @@ export function AnimatedButton({
   const getGradientColors = () => {
     switch (variant) {
       case 'primary':
-        return ['#0021A5', '#001E3C'];
+        return ['#1E40AF', '#1E3A8A'];
       case 'secondary':
-        return ['#E6501E', '#FF7849'];
+        return ['#EA580C', '#DC2626'];
       default:
-        return ['#0021A5', '#001E3C'];
+        return ['#1E40AF', '#1E3A8A'];
     }
   };
 
@@ -146,18 +146,18 @@ const styles = StyleSheet.create({
     paddingVertical: 18,
   },
   primary: {
-    backgroundColor: '#0021A5',
+    backgroundColor: '#1E40AF',
   },
   secondary: {
-    backgroundColor: '#E6501E',
+    backgroundColor: '#EA580C',
   },
   outline: {
     backgroundColor: 'transparent',
     borderWidth: 2,
-    borderColor: '#0021A5',
+    borderColor: '#1E40AF',
   },
   ghost: {
-    backgroundColor: 'rgba(0, 33, 165, 0.1)',
+    backgroundColor: 'rgba(30, 64, 175, 0.1)',
   },
   disabled: {
     opacity: 0.5,
@@ -181,12 +181,12 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   outlineText: {
-    color: '#0021A5',
+    color: '#1E40AF',
   },
   ghostText: {
-    color: '#0021A5',
+    color: '#1E40AF',
   },
   disabledText: {
-    color: '#D8DDE6',
+    color: '#9CA3AF',
   },
 });

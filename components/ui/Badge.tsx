@@ -35,22 +35,22 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   default: {
-    backgroundColor: '#D8DDE6',
+    backgroundColor: '#E5E7EB',
   },
   primary: {
-    backgroundColor: '#0021A5',
+    backgroundColor: '#1E40AF',
   },
   secondary: {
-    backgroundColor: '#E6501E',
+    backgroundColor: '#EA580C',
   },
   success: {
-    backgroundColor: '#E6501E',
+    backgroundColor: '#10B981',
   },
   warning: {
-    backgroundColor: '#FF7849',
+    backgroundColor: '#F59E0B',
   },
   text: {
-    fontWeight: '600',
+    fontFamily: 'Inter-SemiBold',
   },
   smText: {
     fontSize: 12,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   defaultText: {
-    color: '#001E3C',
+    color: '#374151',
   },
   primaryText: {
     color: '#FFFFFF',

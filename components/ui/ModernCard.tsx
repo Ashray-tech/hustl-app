@@ -26,13 +26,13 @@ export function ModernCard({
     
     switch (variant) {
       case 'primary':
-        return ['#0021A5', '#001E3C'];
+        return ['#1E40AF', '#1E3A8A'];
       case 'secondary':
-        return ['#E6501E', '#FF7849'];
+        return ['#EA580C', '#DC2626'];
       case 'accent':
-        return ['#D8DDE6', '#ffffff'];
+        return ['#F3F4F6', '#ffffff'];
       default:
-        return ['#ffffff', '#D8DDE6'];
+        return ['#ffffff', '#F9FAFB'];
     }
   };
 
@@ -81,16 +81,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   primary: {
-    backgroundColor: '#0021A5',
+    backgroundColor: '#1E40AF',
   },
   secondary: {
-    backgroundColor: '#E6501E',
+    backgroundColor: '#EA580C',
   },
   accent: {
-    backgroundColor: '#D8DDE6',
+    backgroundColor: '#F3F4F6',
   },
   elevated: {
-    shadowColor: '#001E3C',
+    shadowColor: '#000000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 16,

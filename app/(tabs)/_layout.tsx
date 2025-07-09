@@ -6,8 +6,8 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#F97316',
-        tabBarInactiveTintColor: '#6B7280',
+        tabBarActiveTintColor: '#4F46E5',
+        tabBarInactiveTintColor: '#9CA3AF',
         tabBarStyle: {
           backgroundColor: '#FFFFFF',
           borderTopWidth: 1,
@@ -25,6 +25,7 @@ export default function TabLayout() {
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
+          paddingHorizontal: 4,
         },
       }}>
       <Tabs.Screen

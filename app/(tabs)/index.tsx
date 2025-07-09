@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Image, TextInput, StatusBar } from 'react-native';
-import { Bell, User as UserIcon, Search, Filter, Coffee, Dumbbell, Car, FileText, Heart, ShoppingBag } from 'lucide-react-native';
+import { Bell, User as UserIcon, Search, Filter, Coffee, Dumbbell, Car, FileText, Heart, ShoppingBag, Star } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { HustlLogo } from '@/components/HustlLogo';
 import { Typography } from '@/components/ui/Typography';
@@ -18,6 +18,8 @@ export default function HomeScreen() {
       icon: <Coffee size={24} color="#FFFFFF" />,
       gradient: ['#F97316', '#EA580C'],
       image: 'https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=400',
+      price: '$5-15',
+      time: '15-30 min'
     },
     {
       id: 2,
@@ -26,6 +28,8 @@ export default function HomeScreen() {
       icon: <Dumbbell size={24} color="#FFFFFF" />,
       gradient: ['#3B82F6', '#2563EB'],
       image: 'https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=400',
+      price: 'Free',
+      time: '1-2 hours'
     },
     {
       id: 3,
@@ -34,6 +38,8 @@ export default function HomeScreen() {
       icon: <Car size={24} color="#FFFFFF" />,
       gradient: ['#10B981', '#059669'],
       image: 'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=400',
+      price: '$3-10',
+      time: '10-20 min'
     },
     {
       id: 4,
@@ -42,6 +48,8 @@ export default function HomeScreen() {
       icon: <FileText size={24} color="#FFFFFF" />,
       gradient: ['#8B5CF6', '#7C3AED'],
       image: 'https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=400',
+      price: '$2-8',
+      time: '15-25 min'
     },
     {
       id: 5,
@@ -50,6 +58,8 @@ export default function HomeScreen() {
       icon: <Heart size={24} color="#FFFFFF" />,
       gradient: ['#EF4444', '#DC2626'],
       image: 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=400',
+      price: '$10-25',
+      time: '30-60 min'
     },
     {
       id: 6,
@@ -58,7 +68,26 @@ export default function HomeScreen() {
       icon: <ShoppingBag size={24} color="#FFFFFF" />,
       gradient: ['#F59E0B', '#D97706'],
       image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=400',
+      price: '$5-20',
+      time: '20-45 min'
     },
+  ];
+
+  const testimonials = [
+    {
+      id: 1,
+      name: 'Sarah M.',
+      rating: 5,
+      text: 'Hustl saved me so much time! Got my coffee delivered in 10 minutes.',
+      avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100'
+    },
+    {
+      id: 2,
+      name: 'Mike R.',
+      rating: 5,
+      text: 'Perfect for busy students. Quick, reliable, and affordable.',
+      avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=100'
+    }
   ];
 
   return (
@@ -93,47 +122,49 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </View>
         </View>
-
-        <View style={styles.heroSection}>
-          <Typography variant="h2" color="#FFFFFF" style={styles.heroTitle}>
-            Running late for class?
-          </Typography>
-          <Typography variant="body1" color="rgba(255,255,255,0.9)" style={styles.heroSubtitle}>
-            Get coffee delivered right to you
-          </Typography>
-          <Typography variant="body2" color="rgba(255,255,255,0.8)" style={styles.heroDescription}>
-            Campus errands, covered. Coffee runs, printing, pet care — Hustl connects Gators in minutes.
-          </Typography>
-          
-          <View style={styles.heroButtons}>
-            <AnimatedButton
-              title="Post a Task"
-              onPress={() => {}}
-              variant="secondary"
-              size="md"
-              style={styles.postButton}
-            />
-            <AnimatedButton
-              title="Coffee Run"
-              onPress={() => {}}
-              variant="outline"
-              size="md"
-              style={styles.coffeeButton}
-              textStyle={{ color: '#FFFFFF' }}
-            />
-          </View>
-        </View>
       </LinearGradient>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        {/* Main CTA Section */}
+        <View style={styles.ctaSection}>
+          <LinearGradient
+            colors={['#4F46E5', '#3730A3']}
+            style={styles.ctaCard}
+          >
+            <Typography variant="h2" color="#FFFFFF" style={styles.ctaTitle}>
+              Need Something Else?
+            </Typography>
+            <Typography variant="body1" color="rgba(255,255,255,0.9)" style={styles.ctaDescription}>
+              Create a custom task and get matched with verified students around campus
+            </Typography>
+            <View style={styles.ctaButtons}>
+              <AnimatedButton
+                title="Post a Task"
+                onPress={() => {}}
+                variant="secondary"
+                size="md"
+                style={styles.ctaButton}
+              />
+              <AnimatedButton
+                title="Browse Tasks"
+                onPress={() => {}}
+                variant="outline"
+                size="md"
+                style={[styles.ctaButton, { borderColor: 'rgba(255,255,255,0.3)' }]}
+                textStyle={{ color: '#FFFFFF' }}
+              />
+            </View>
+          </LinearGradient>
+        </View>
+
         {/* Popular Tasks Section */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Typography variant="h3" style={styles.sectionTitle}>⚡ Popular Tasks</Typography>
+            <Typography variant="body2" color="#6B7280" style={styles.sectionSubtitle}>
+              Choose from our most popular task templates or create your own
+            </Typography>
           </View>
-          <Typography variant="body2" color="#6B7280" style={styles.sectionSubtitle}>
-            Choose from our most popular task templates or create your own
-          </Typography>
           
           {/* Search Bar */}
           <View style={styles.searchContainer}>
@@ -176,6 +207,11 @@ export default function HomeScreen() {
                       <Typography variant="body2" color="rgba(255,255,255,0.9)" style={styles.taskDescription}>
                         {task.description}
                       </Typography>
+                      <View style={styles.taskMeta}>
+                        <Typography variant="caption" color="rgba(255,255,255,0.8)">
+                          {task.price} • {task.time}
+                        </Typography>
+                      </View>
                     </View>
                   </LinearGradient>
                 </View>
@@ -184,21 +220,103 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        {/* Quick Actions */}
-        <View style={styles.quickActions}>
-          <ModernCard style={styles.quickActionCard}>
-            <Typography variant="h4" style={styles.quickActionTitle}>Need something else?</Typography>
-            <Typography variant="body2" color="#6B7280" style={styles.quickActionDescription}>
-              Post a custom task and get matched with nearby students
-            </Typography>
+        {/* How Hustl Works */}
+        <View style={styles.howItWorksSection}>
+          <Typography variant="h3" style={styles.sectionTitle}>🔥 How Hustl Works</Typography>
+          <Typography variant="body2" color="#6B7280" style={styles.sectionSubtitle}>
+            Get help in 3 easy steps
+          </Typography>
+          
+          <View style={styles.stepsContainer}>
+            <View style={styles.step}>
+              <View style={styles.stepNumber}>
+                <Typography variant="h4" color="#FFFFFF">1</Typography>
+              </View>
+              <View style={styles.stepContent}>
+                <Typography variant="h4" style={styles.stepTitle}>Post Your Task</Typography>
+                <Typography variant="body2" color="#6B7280">
+                  Describe what you need help with and set your budget
+                </Typography>
+              </View>
+            </View>
+            
+            <View style={styles.step}>
+              <View style={[styles.stepNumber, { backgroundColor: '#F97316' }]}>
+                <Typography variant="h4" color="#FFFFFF">2</Typography>
+              </View>
+              <View style={styles.stepContent}>
+                <Typography variant="h4" style={styles.stepTitle}>Get Matched</Typography>
+                <Typography variant="body2" color="#6B7280">
+                  Connect with verified students who can help
+                </Typography>
+              </View>
+            </View>
+            
+            <View style={styles.step}>
+              <View style={[styles.stepNumber, { backgroundColor: '#10B981' }]}>
+                <Typography variant="h4" color="#FFFFFF">3</Typography>
+              </View>
+              <View style={styles.stepContent}>
+                <Typography variant="h4" style={styles.stepTitle}>Complete & Pay</Typography>
+                <Typography variant="body2" color="#6B7280">
+                  Task completed safely with secure payment
+                </Typography>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        {/* Student Testimonials */}
+        <View style={styles.testimonialsSection}>
+          <Typography variant="h3" style={styles.sectionTitle}>💬 What Students Are Saying</Typography>
+          <Typography variant="body2" color="#6B7280" style={styles.sectionSubtitle}>
+            Real experiences from UF students using Hustl to get things done
+          </Typography>
+          
+          <View style={styles.testimonialsList}>
+            {testimonials.map((testimonial) => (
+              <ModernCard key={testimonial.id} style={styles.testimonialCard}>
+                <View style={styles.testimonialHeader}>
+                  <Image source={{ uri: testimonial.avatar }} style={styles.testimonialAvatar} />
+                  <View style={styles.testimonialInfo}>
+                    <Typography variant="h4">{testimonial.name}</Typography>
+                    <View style={styles.rating}>
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} size={14} color="#F59E0B" fill="#F59E0B" />
+                      ))}
+                    </View>
+                  </View>
+                </View>
+                <Typography variant="body2" color="#6B7280" style={styles.testimonialText}>
+                  "{testimonial.text}"
+                </Typography>
+              </ModernCard>
+            ))}
+          </View>
+        </View>
+
+        {/* Final CTA */}
+        <View style={styles.finalCTA}>
+          <Typography variant="h3" style={styles.finalCTATitle}>Ready to Get Started?</Typography>
+          <Typography variant="body2" color="#6B7280" style={styles.finalCTADescription}>
+            Join thousands of UF students already using Hustl to connect and help each other succeed
+          </Typography>
+          <View style={styles.finalCTAButtons}>
             <AnimatedButton
-              title="Create Custom Task"
+              title="Start Using Hustl"
               onPress={() => {}}
               variant="primary"
-              size="md"
-              style={styles.customTaskButton}
+              size="lg"
+              style={styles.finalCTAButton}
             />
-          </ModernCard>
+            <AnimatedButton
+              title="Contact Support"
+              onPress={() => {}}
+              variant="outline"
+              size="lg"
+              style={styles.finalCTAButton}
+            />
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -212,14 +330,13 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingTop: 50,
-    paddingBottom: 32,
+    paddingBottom: 24,
     paddingHorizontal: 20,
   },
   headerTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 24,
   },
   headerLeft: {
     flexDirection: 'row',
@@ -247,50 +364,51 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  heroSection: {
-    alignItems: 'center',
-    gap: 12,
-  },
-  heroTitle: {
-    textAlign: 'center',
-    fontWeight: '700',
-  },
-  heroSubtitle: {
-    textAlign: 'center',
-    fontWeight: '500',
-  },
-  heroDescription: {
-    textAlign: 'center',
-    lineHeight: 20,
-    marginBottom: 8,
-  },
-  heroButtons: {
-    flexDirection: 'row',
-    gap: 12,
-    marginBottom: 16,
-  },
-  postButton: {
-    backgroundColor: '#F97316',
-    paddingHorizontal: 20,
-  },
-  coffeeButton: {
-    borderColor: 'rgba(255,255,255,0.3)',
-    paddingHorizontal: 20,
-  },
   content: {
     flex: 1,
+  },
+  ctaSection: {
+    padding: 20,
+    backgroundColor: '#F8FAFC',
+  },
+  ctaCard: {
+    borderRadius: 20,
+    padding: 32,
+    alignItems: 'center',
+  },
+  ctaTitle: {
+    textAlign: 'center',
+    marginBottom: 12,
+    fontWeight: '700',
+  },
+  ctaDescription: {
+    textAlign: 'center',
+    marginBottom: 24,
+    lineHeight: 24,
+  },
+  ctaButtons: {
+    flexDirection: 'row',
+    gap: 12,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  ctaButton: {
+    minWidth: 140,
   },
   section: {
     padding: 20,
   },
   sectionHeader: {
-    marginBottom: 8,
+    marginBottom: 20,
+    alignItems: 'center',
   },
   sectionTitle: {
+    textAlign: 'center',
+    marginBottom: 8,
     fontWeight: '700',
   },
   sectionSubtitle: {
-    marginBottom: 20,
+    textAlign: 'center',
     lineHeight: 20,
   },
   searchContainer: {
@@ -330,7 +448,7 @@ const styles = StyleSheet.create({
   },
   taskCardContent: {
     position: 'relative',
-    height: 180,
+    height: 200,
   },
   taskImage: {
     width: '100%',
@@ -368,25 +486,94 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 12,
     lineHeight: 16,
-  },
-  quickActions: {
-    padding: 20,
-    paddingTop: 0,
-  },
-  quickActionCard: {
-    alignItems: 'center',
-    padding: 24,
-  },
-  quickActionTitle: {
     marginBottom: 8,
-    textAlign: 'center',
   },
-  quickActionDescription: {
+  taskMeta: {
+    alignItems: 'center',
+  },
+  howItWorksSection: {
+    padding: 20,
+    backgroundColor: '#F8FAFC',
+  },
+  stepsContainer: {
+    marginTop: 24,
+    gap: 20,
+  },
+  step: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+  },
+  stepNumber: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#4F46E5',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  stepContent: {
+    flex: 1,
+  },
+  stepTitle: {
+    marginBottom: 4,
+    fontWeight: '600',
+  },
+  testimonialsSection: {
+    padding: 20,
+  },
+  testimonialsList: {
+    marginTop: 20,
+    gap: 16,
+  },
+  testimonialCard: {
+    padding: 20,
+  },
+  testimonialHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+    gap: 12,
+  },
+  testimonialAvatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+  testimonialInfo: {
+    flex: 1,
+  },
+  rating: {
+    flexDirection: 'row',
+    gap: 2,
+    marginTop: 4,
+  },
+  testimonialText: {
+    lineHeight: 20,
+    fontStyle: 'italic',
+  },
+  finalCTA: {
+    padding: 20,
+    backgroundColor: '#F8FAFC',
+    alignItems: 'center',
+  },
+  finalCTATitle: {
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 8,
+    fontWeight: '700',
+  },
+  finalCTADescription: {
+    textAlign: 'center',
+    marginBottom: 24,
     lineHeight: 20,
   },
-  customTaskButton: {
-    width: '100%',
+  finalCTAButtons: {
+    flexDirection: 'row',
+    gap: 12,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  finalCTAButton: {
+    minWidth: 140,
   },
 });

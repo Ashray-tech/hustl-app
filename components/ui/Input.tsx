@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontFamily: 'Inter-SemiBold',
+    fontWeight: '600',
     color: '#1F2937',
     marginBottom: 8,
   },
@@ -44,14 +44,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
     borderWidth: 2,
-    borderColor: '#D1D5DB',
+    borderColor: '#E5E7EB',
     borderRadius: 16,
     paddingHorizontal: 16,
     paddingVertical: 14,
   },
   focused: {
-    borderColor: '#1E40AF',
-    shadowColor: '#1E40AF',
+    borderColor: '#4F46E5',
+    shadowColor: '#4F46E5',
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     color: '#1F2937',
-    fontFamily: 'Inter-Regular',
   },
   inputWithIcon: {
     marginLeft: 0,
@@ -76,6 +75,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#EF4444',
     marginTop: 4,
-    fontFamily: 'Inter-Medium',
+    fontWeight: '500',
   },
 });

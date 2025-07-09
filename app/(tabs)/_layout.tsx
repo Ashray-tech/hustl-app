@@ -1,14 +1,13 @@
 import { Tabs } from 'expo-router';
-import { Search, Plus, User, MoveHorizontal as MoreHorizontal } from 'lucide-react-native';
-import { HustlLogo } from '@/components/HustlLogo';
+import { Home, List, Plus, MessageCircle, User } from 'lucide-react-native';
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#F97316',
-        tabBarInactiveTintColor: '#6B7280',
+        tabBarActiveTintColor: '#4F46E5',
+        tabBarInactiveTintColor: '#9CA3AF',
         tabBarStyle: {
           backgroundColor: '#FFFFFF',
           borderTopWidth: 1,
@@ -28,25 +27,34 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ size, color }) => (
-            <HustlLogo size={size} />
+            <Home size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="browse"
+        name="tasks"
         options={{
-          title: 'Browse',
+          title: 'Tasks',
           tabBarIcon: ({ size, color }) => (
-            <Search size={size} color={color} />
+            <List size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="post"
         options={{
-          title: 'Post Task',
+          title: 'Post',
           tabBarIcon: ({ size, color }) => (
             <Plus size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="chats"
+        options={{
+          title: 'Chats',
+          tabBarIcon: ({ size, color }) => (
+            <MessageCircle size={size} color={color} />
           ),
         }}
       />
@@ -56,15 +64,6 @@ export default function TabLayout() {
           title: 'Profile',
           tabBarIcon: ({ size, color }) => (
             <User size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="more"
-        options={{
-          title: 'More',
-          tabBarIcon: ({ size, color }) => (
-            <MoreHorizontal size={size} color={color} />
           ),
         }}
       />

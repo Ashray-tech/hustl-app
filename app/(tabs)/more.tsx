@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
-import { Bell, User as UserIcon, Settings, HelpCircle, Shield, FileText, Star, LogOut, ChevronRight } from 'lucide-react-native';
+import { Bell, User as UserIcon, Settings, CircleHelp as HelpCircle, Shield, FileText, Star, LogOut, ChevronRight } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { HustlLogo } from '@/components/HustlLogo';
 import { Typography } from '@/components/ui/Typography';

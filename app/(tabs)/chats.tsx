@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, TextInput, StatusBar } from 'react-native';
-import { Bell, User as UserIcon, Search, MoreHorizontal } from 'lucide-react-native';
+import { Bell, User as UserIcon, Search, MoveHorizontal as MoreHorizontal } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { HustlLogo } from '@/components/HustlLogo';
 import { Typography } from '@/components/ui/Typography';

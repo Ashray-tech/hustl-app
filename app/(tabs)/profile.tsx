@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Image, StatusBar } from 'react-native';
-import { Bell, User as UserIcon, Settings, MessageSquare, BarChart3, Zap, ChevronRight } from 'lucide-react-native';
+import { Bell, User as UserIcon, Settings, MessageSquare, ChartBar as BarChart3, Zap, ChevronRight } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { HustlLogo } from '@/components/HustlLogo';
 import { Typography } from '@/components/ui/Typography';
